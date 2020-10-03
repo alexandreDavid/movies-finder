@@ -8,12 +8,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/search',
-    name: 'About',
+    path: '/result',
+    name: 'Result',
+    beforeEnter: (to, from, next) => {
+      if (!to.query || !to.query.search) {
+        next({ name: 'Home' })
+      }
+      // if the search is empty we go back to the search page
+      next()
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Result.vue')
   }
 ]
 

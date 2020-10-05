@@ -1,30 +1,30 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/result">About</router-link>
-  </div>
-  <router-view/>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">MovieFinder</a>
+    <form class="form-inline" @submit.prevent="search(valueToSearch)">
+      <input class="form-control mr-sm-2"
+        v-model="valueToSearch"
+        type="search"
+        placeholder="Search a movie"
+        aria-label="Search a movie">
+      <button class="btn btn-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </form>
+  </nav>
+  <router-view />
 </template>
 
+<script>
+import searchMixins from '@/mixins/search'
+
+export default {
+  mixins: [searchMixins]
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+body {
+  background-color: var(--light);
 }
 </style>

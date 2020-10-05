@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "vue": "^3.0.0-0",
+    "vue-horizontal-list": "^1.0.12",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
@@ -27,7 +28,9 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.0.0-0",
-    "lint-staged": "^9.5.0"
+    "lint-staged": "^9.5.0",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2"
   },
   "eslintConfig": {
     "root": true,

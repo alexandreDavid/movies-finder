@@ -215,6 +215,7 @@ export default {
     go (position) {
       const maxPosition = this.items.length - this._size
       this.position = position > maxPosition ? maxPosition : position
+      this.$emit('set-pos', this.position)
 
       const left = this._itemWidth * this.position + this.position * this._options.item.padding
       this.$refs.list.scrollTo({ top: 0, left: left, behavior: 'smooth' })

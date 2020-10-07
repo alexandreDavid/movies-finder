@@ -6,7 +6,7 @@
     <div v-else-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
     <template v-else >
       <h3>Search: <b>{{ $route.query.search }}</b> <span class="badge badge-pill badge-secondary">{{ totalResults }}</span></h3>
-      <vue-horizontal-list :items="movies" :options="options">
+      <vue-horizontal-list :items="movies" :options="options" @set-pos="onPositionChanged($event)">
         <template v-slot:default="{item}">
           <MovieSlider :movie="item" />
         </template>
@@ -47,19 +47,19 @@ export default {
     }
   },
   watch: {
-    '$route.query.search': 'fetchMovies'
+    '$route.query.search': 'setResearch'
   },
   async mounted () {
-    await this.fetchMovies()
+    this.setResearch()
   },
   methods: {
-    async fetchMovies () {
+    async setResearch () {
       this.isLoading = true
       this.error = false
       if (!this.$route.query.search) {
         return this.$router.push({ name: 'Home' })
       }
-      const response = (await axios.get(`http://www.omdbapi.com/?s=${this.$route.query.search}&apikey=48d1aa&type=movie`)).data
+      const response = await this.fetchMovies()
       if (response.Response === 'True') {
         this.movies = response.Search
         this.totalResults = response.totalResults
@@ -67,6 +67,20 @@ export default {
         this.error = response.Error
       }
       this.isLoading = false
+    },
+    async fetchMovies (page = 1) {
+      return (await axios.get(`http://www.omdbapi.com/?s=${this.$route.query.search}&apikey=48d1aa&type=movie&page=${page}`)).data
+    },
+    async onPositionChanged (pos) {
+      // We load the next movies if necessary
+      if (this.totalResults - this.movies.length > 0) {
+        if (pos + 4 >= this.movies.length) {
+          const response = await this.fetchMovies((this.movies.length / 10) + 1)
+          if (response.Response === 'True') {
+            this.movies = this.movies.concat(response.Search)
+          }
+        }
+      }
     }
   }
 }

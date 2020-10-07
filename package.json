@@ -10,8 +10,8 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "smoothscroll-polyfill": "^0.4.4",
     "vue": "^3.0.0-0",
-    "vue-horizontal-list": "^1.0.12",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {

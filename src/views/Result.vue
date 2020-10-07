@@ -56,6 +56,9 @@ export default {
     async fetchMovies () {
       this.isLoading = true
       this.error = false
+      if (!this.$route.query.search) {
+        return this.$router.push({ name: 'Home' })
+      }
       const response = (await axios.get(`http://www.omdbapi.com/?s=${this.$route.query.search}&apikey=48d1aa&type=movie`)).data
       if (response.Response === 'True') {
         this.movies = response.Search

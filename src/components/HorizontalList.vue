@@ -30,6 +30,9 @@
 </template>
 
 <script>
+/**
+ * Vue-horizontal-list library is not compatible yet with Vue3
+ */
 export default {
   name: 'VueHorizontalList',
   props: {
